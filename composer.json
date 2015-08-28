@@ -1,0 +1,22 @@
+{
+    "name": "jamieynonan/helpers",
+    "description": "Helpers Form, Array, Html",
+    "keywords": ["helper","form","array","html"],
+    "type": "library",
+    "homepage": "https://github.com/JamieYnonan/helpers",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Jamie Ynonan",
+            "email": "jamiea31@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Helper\\": "src/"
+        }
+    }
+}
