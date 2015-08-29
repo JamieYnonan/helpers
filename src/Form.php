@@ -87,16 +87,20 @@ class Form extends BaseHtml
     public static function select(
         array $options = [],
         $value = null,
+        $multiple = false,
         array $htmlOptions = []
     ) {
         $select = '<select'. self::htmlOptions($htmlOptions) .'>';
-        $select .= self::selectOptions($options, $value);
+        $select .= self::selectOptions($options, $value, $multiple);
         $select .= '</select>';
         return $select;
     }
 
-    private static function selectOptions(array $options = [], $actualValue = '')
-    {
+    private static function selectOptions(
+        array $options = [],
+        $actualValue = '',
+        $multiple
+    ) {
         $option = '';
         $selected = '';
         foreach ($options as $value => $label) {
@@ -108,6 +112,10 @@ class Form extends BaseHtml
                 if ($value == $actualValue) {
                     $selected = ' selected';
                 }
+                $selected = (!empty($value) && (
+                    ($multiple === true && in_array($value, $actualValue)) ||
+                    ($multiple === false && $value == $actualValue)
+                )) ? ' selected' : '';
                 $option .= '<option value="'. $value .'"'. $selected .'>'
                     . $label .'</option>';
             }
