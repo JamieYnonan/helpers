@@ -92,6 +92,7 @@ class Form extends BaseHtml
         $select = '<select'. self::htmlOptions($htmlOptions) .'>';
         $select .= self::selectOptions($options, $value);
         $select .= '</select>';
+        return $select;
     }
 
     private static function selectOptions(array $options = [], $actualValue = '')
