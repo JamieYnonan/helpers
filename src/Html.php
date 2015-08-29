@@ -1,7 +1,7 @@
 <?php
 namespace Helper;
 
-Class Helper extends BaseHtml
+Class Html extends BaseHtml
 {
 	public static function p($text, array $options = [])
 	{
