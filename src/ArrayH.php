@@ -4,7 +4,7 @@ namespace Helper;
 /*
  * https://github.com/yiisoft/yii2/blob/master/framework/helpers/BaseArrayHelper.php
  */
-class Array
+class ArrayH
 {
 	public static function map(array $array, $from, $to, $group = null)
     {
