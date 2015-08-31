@@ -26,7 +26,7 @@ class Form extends BaseHtml
         return $submit;
     }
 
-    public static function text($name, $value = null, array $options = [])
+    public static function text($name, $value = '', array $options = [])
     {
     	$text = self::input('text', $name, $value)
     		. self::htmlOptions($options) .'>';
@@ -35,22 +35,29 @@ class Form extends BaseHtml
 
     public static function password($name, array $options = [])
     {
-        $pass = self::input('password', $name, $value)
+        $pass = self::input('password', $name)
             . self::htmlOptions($options);
         return $pass;
     }
 
-    public static function email($name, $value = null, array $options = [])
+    public static function hidden($name, $value = '', array $options = [])
+    {
+        $hidden = self::input('hidden', $name, $value)
+            . self::htmlOptions($options);
+        return $hidden;
+    }
+
+    public static function email($name, $value = '', array $options = [])
     {
         $email = self::input('email', $name, $value)
             . self::htmlOptions($options) .'>';
-        return $text;
+        return $email;
     }
 
     public static function radio(
         $name,
-        $value = null,
-        $checked,
+        $value,
+        $checked = null,
         array $options = []
     ) {
     	$radio = self::input('radio', $name, $value);
@@ -63,7 +70,7 @@ class Form extends BaseHtml
 
     public static function checkbox(
         $name,
-        $value = null,
+        $value,
         array $checkeds = [],
         array $options = []
     ) {
@@ -76,7 +83,7 @@ class Form extends BaseHtml
         return $check;
     }
 
-    public static function textarea($name, $value = null, array $options = [])
+    public static function textarea($name, $value = '', array $options = [])
     {
         $text = '<textarea name="'. $name .'"';
         $text .= self::htmlOptions($options) .'>';
@@ -90,7 +97,11 @@ class Form extends BaseHtml
         $multiple = false,
         array $htmlOptions = []
     ) {
-        $select = '<select'. self::htmlOptions($htmlOptions) .'>';
+        $select = '<select'. self::htmlOptions($htmlOptions);
+        if ($multiple === true) {
+            $select .= ' multiple';
+        }
+        $select .= '>';
         $select .= self::selectOptions($options, $value, $multiple);
         $select .= '</select>';
         return $select;
@@ -123,7 +134,7 @@ class Form extends BaseHtml
         return $option;
     }
 
-    private static function input($type, $name, $value)
+    private static function input($type, $name, $value = '')
     {
         return '<input type="'. $type .'" name="'. $name .'" value="'
             . $value .'"';
