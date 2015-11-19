@@ -92,12 +92,13 @@ class Form extends BaseHtml
     }
 
     public static function select(
+        $name,
         array $options = [],
         $value = null,
         $multiple = false,
         array $htmlOptions = []
     ) {
-        $select = '<select'. self::htmlOptions($htmlOptions);
+        $select = '<select name="'. $name .'"'. self::htmlOptions($htmlOptions);
         if ($multiple === true) {
             $select .= ' multiple';
         }
@@ -110,7 +111,7 @@ class Form extends BaseHtml
     private static function selectOptions(
         array $options = [],
         $actualValue = '',
-        $multiple
+        $multiple = false
     ) {
         $option = '';
         $selected = '';
