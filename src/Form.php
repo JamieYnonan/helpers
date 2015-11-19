@@ -117,7 +117,7 @@ class Form extends BaseHtml
         foreach ($options as $value => $label) {
             if (is_array($label)) {
                 $option .= '<optgroup label="'. $value .'">';
-                $option .= self::selectOptions($label, $actualValue);
+                $option .= self::selectOptions($label, $actualValue, $multiple);
                 $option .= '</optgroup>';
             } else {
                 if ($value == $actualValue) {
