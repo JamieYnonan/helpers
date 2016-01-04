@@ -108,6 +108,12 @@ class Form extends BaseHtml
         return $select;
     }
 
+    public static function label($text, array $htmlOptions = [])
+    {
+        return '<label' . self::htmlOptions($htmlOptions) .'>'
+            . $text .'</label>';
+    }
+
     private static function selectOptions(
         array $options = [],
         $actualValue = '',
