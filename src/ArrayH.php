@@ -23,13 +23,14 @@ class ArrayH
 
     public static function getValue(array $array, $key, $default = null)
     {
-    	if (is_array($key)) {
+        if (is_array($key)) {
             $lastKey = array_pop($key);
             foreach ($key as $keyPart) {
                 $array = static::getValue($array, $keyPart);
             }
             $key = $lastKey;
         }
+
         if (is_array($array) && array_key_exists($key, $array)) {
             return $array[$key];
         }
@@ -39,12 +40,9 @@ class ArrayH
             $key = substr($key, $pos + 1);
         }
 
-        if (is_object($array)) {
-            return $array->$key;
-        } elseif (is_array($array)) {
+        if (is_array($array)) {
             return array_key_exists($key, $array) ? $array[$key] : $default;
-        } else {
-            return $default;
         }
+        return $default;
     }
 }
