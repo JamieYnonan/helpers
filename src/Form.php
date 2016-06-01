@@ -1,96 +1,191 @@
 <?php
-namespace Helper;
+namespace Helpers;
 
-class Form extends BaseHtml
+/**
+ * Class Form
+ *
+ * Help to create forms
+ * 
+ * @package Helpers
+ * @author Jamie Ynonan <jamiea31@gmail.com>
+ * @version 1.0.0
+ */
+class Form
 {
+    use BaseHtmlTrait;
 
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $method
+     * @param string $action
+     * @param array $htmlOptions
+     * @return string
+     */
     public static function open(
         $method = 'POST',
         $action = '',
-        array $options = []
+        array $htmlOptions = []
     ) {
-        $form = '<form method="'. $method .'" action="'. $action .'"'
-            . self::htmlOptions($options) .'>';
-        return $form;
+        return '<form method="'. $method .'" action="'. $action .'"'
+            . self::htmlOptions($htmlOptions) .'>';
     }
 
+    /**
+     * @return string
+     */
     public static function close()
     {
         return '</form>';
     }
 
-    public static function submit($value = '', array $options = [])
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $text default
+     * @param array $htmlOptions
+     * @return string
+     */
+    public static function submit($text = '', array $htmlOptions = [])
     {
-        $submit = '<button type="submit"'. self::options($options) .'>';
-        $submit .= $value .'</button>';
-        return $submit;
+        return '<button type="submit"'. self::htmlOptions($htmlOptions) .'>'. $text .'</button>';
     }
 
-    public static function text($name, $value = '', array $options = [])
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $text
+     * @param array $htmlOptions
+     * @return string
+     */
+    public static function label($text, array $htmlOptions = [])
     {
-    	$text = self::input('text', $name, $value)
-    		. self::htmlOptions($options) .'>';
-    	return $text;
+        return '<label'. self::htmlOptions($htmlOptions) .'>'. $text .'</label>';
     }
 
-    public static function password($name, array $options = [])
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $name
+     * @param string $value
+     * @param array $htmlOptions
+     * @return string
+     */
+    public static function text($name, $value = '', array $htmlOptions = [])
     {
-        $pass = self::input('password', $name)
-            . self::htmlOptions($options);
-        return $pass;
+    	return self::input('text', $name, $value) . self::htmlOptions($htmlOptions) .'>';
     }
 
-    public static function hidden($name, $value = '', array $options = [])
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $name
+     * @param array $htmlOptions
+     * @return string
+     */
+    public static function password($name, array $htmlOptions = [])
     {
-        $hidden = self::input('hidden', $name, $value)
-            . self::htmlOptions($options);
-        return $hidden;
+        return self::input('password', $name) . self::htmlOptions($htmlOptions) .'>';
     }
 
-    public static function email($name, $value = '', array $options = [])
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $name
+     * @param string $value
+     * @param array $htmlOptions
+     * @return string
+     */
+    public static function hidden($name, $value = '', array $htmlOptions = [])
     {
-        $email = self::input('email', $name, $value)
-            . self::htmlOptions($options) .'>';
-        return $email;
+        return self::input('hidden', $name, $value) . self::htmlOptions($htmlOptions) .'>';
     }
 
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $name
+     * @param string $value
+     * @param array $htmlOptions
+     * @return string
+     */
+    public static function email($name, $value = '', array $htmlOptions = [])
+    {
+        return self::input('email', $name, $value) . self::htmlOptions($htmlOptions) .'>';
+    }
+
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $name
+     * @param mixed $value
+     * @param null|mixed $checkedValue
+     * @param array $htmlOptions
+     * @return string
+     */
     public static function radio(
         $name,
         $value,
-        $checked = null,
-        array $options = []
+        $checkedValue = null,
+        array $htmlOptions = []
     ) {
     	$radio = self::input('radio', $name, $value);
-    	if ($checked == $value) {
+    	if ($checkedValue == $value) {
     		$radio .= ' checked="checked"';
     	}
-    	$radio .= self::htmlOptions($options) .'>';
+    	$radio .= self::htmlOptions($htmlOptions) .'>';
     	return $radio;
     }
 
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $name
+     * @param mixed $value
+     * @param array $checkedValues
+     * @param array $htmlOptions
+     * @return string
+     */
     public static function checkbox(
         $name,
         $value,
-        array $checkeds = [],
-        array $options = []
+        array $checkedValues = [],
+        array $htmlOptions = []
     ) {
         $check = self::input('checkbox', $name, $value);
-        $check .= 'value="'.$value.'"';
-        if (in_array($value, $checkeds)) {
+        if (in_array($value, $checkedValues)) {
             $check .= ' checked="checked"';
         }
-        $check .= self::htmlOptions($options) .'>';
+        $check .= self::htmlOptions($htmlOptions) .'>';
         return $check;
     }
 
-    public static function textarea($name, $value = '', array $options = [])
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $name
+     * @param string $text
+     * @param array $htmlOptions
+     * @return string
+     */
+    public static function textarea($name, $text = '', array $htmlOptions = [])
     {
-        $text = '<textarea name="'. $name .'"';
-        $text .= self::htmlOptions($options) .'>';
-        $text .= $value .'</textarea>';
-        return $text;
+        return '<textarea name="'. $name .'"'. self::htmlOptions($htmlOptions)
+            .'>'. $text .'</textarea>';
     }
 
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param string $name
+     * @param array $options
+     * @param null $value if $multiple is true the $value must be array
+     * @param bool $multiple
+     * @param array $htmlOptions
+     * @throws \InvalidArgumentException if $multiple is true and $value is not array
+     * @throws \InvalidArgumentException if $multiple is false and $value is array
+     * @return string
+     */
     public static function select(
         $name,
         array $options = [],
@@ -98,6 +193,12 @@ class Form extends BaseHtml
         $multiple = false,
         array $htmlOptions = []
     ) {
+        if ($multiple === true && !is_array($value)) {
+            throw new \InvalidArgumentException('if $multiple is true, $value must be array');
+        }
+        if ($multiple === false && is_array($value)) {
+            throw new \InvalidArgumentException('if $multiple is false, $value can not be array');
+        }
         $select = '<select name="'. $name .'"'. self::htmlOptions($htmlOptions);
         if ($multiple === true) {
             $select .= ' multiple';
@@ -108,28 +209,26 @@ class Form extends BaseHtml
         return $select;
     }
 
-    public static function label($text, array $htmlOptions = [])
-    {
-        return '<label' . self::htmlOptions($htmlOptions) .'>'
-            . $text .'</label>';
-    }
-
+    /**
+     * @uses BaseHtmlTrait::BaseHtmlTrait
+     *
+     * @param array $options
+     * @param string $actualValue
+     * @param bool $multiple
+     * @return string
+     */
     private static function selectOptions(
         array $options = [],
         $actualValue = '',
         $multiple = false
     ) {
         $option = '';
-        $selected = '';
         foreach ($options as $value => $label) {
             if (is_array($label)) {
                 $option .= '<optgroup label="'. $value .'">';
                 $option .= self::selectOptions($label, $actualValue, $multiple);
                 $option .= '</optgroup>';
             } else {
-                if ($value == $actualValue) {
-                    $selected = ' selected';
-                }
                 $selected = (!empty($value) && (
                     ($multiple === true && in_array($value, $actualValue)) ||
                     ($multiple === false && $value == $actualValue)
@@ -141,9 +240,14 @@ class Form extends BaseHtml
         return $option;
     }
 
+    /**
+     * @param string $type
+     * @param string $name
+     * @param string $value
+     * @return string
+     */
     private static function input($type, $name, $value = '')
     {
-        return '<input type="'. $type .'" name="'. $name .'" value="'
-            . $value .'"';
+        return '<input type="'. $type .'" name="'. $name .'" value="'. $value .'"';
     }
 }

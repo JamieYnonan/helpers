@@ -1,12 +1,22 @@
 <?php
-namespace Helper;
+namespace Helpers;
 
+/**
+ * Class StringH
+ *
+ * help to to job with strings
+ *
+ * @package Helpers
+ * @author Jamie Ynonan <jamiea31@gmail.com>
+ * @link https://github.com/yiisoft/yii2/blob/master/framework/helpers/BaseInflector.php
+ * @version 1.0.0
+ */
 Class StringH
 {
-	/*
-	 * https://github.com/yiisoft/yii2/blob/master/framework/helpers/BaseInflector.php
-	 */
 
+    /**
+     * @var array
+     */
 	public static $transliteration = [
         'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'AE', 'Ç' => 'C',
         'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I',
@@ -20,6 +30,12 @@ Class StringH
         'ÿ' => 'y',
     ];
 
+    /**
+     * @param string $string
+     * @param string $replacement
+     * @param bool $lowercase
+     * @return string
+     */
     public static function slug($string, $replacement = '-', $lowercase = true)
     {
         $string = static::transliterate($string);
@@ -29,11 +45,20 @@ Class StringH
         return $lowercase ? strtolower($string) : $string;
     }
 
+    /**
+     * @param string $string
+     * @return mixed
+     */
     protected static function transliterate($string)
     {
         return str_replace(array_keys(static::$transliteration), static::$transliteration, $string);
     }
 
+    /**
+     * @param string $name
+     * @param bool $ucwords
+     * @return string
+     */
 	public static function camel2words($name, $ucwords = true)
 	{
 		$label = trim(strtolower(str_replace([
@@ -44,7 +69,13 @@ Class StringH
 		return $ucwords ? ucwords($label) : $label;
 	}
 
-	    public static function camel2id($name, $separator = '-', $strict = false)
+    /**
+     * @param string $name
+     * @param string $separator
+     * @param bool $strict
+     * @return string
+     */
+    public static function camel2id($name, $separator = '-', $strict = false)
     {
         $regex = $strict ? '/[A-Z]/' : '/(?<![A-Z])[A-Z]/';
         if ($separator === '_') {

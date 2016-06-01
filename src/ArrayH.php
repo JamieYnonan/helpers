@@ -1,11 +1,25 @@
 <?php
-namespace Helper;
+namespace Helpers;
 
-/*
- * https://github.com/yiisoft/yii2/blob/master/framework/helpers/BaseArrayHelper.php
+/**
+ * Class ArrayH
+ *
+ * Help to job with arrays
+ *
+ * @package Helpers
+ * @author Jamie Ynonan <jamiea31@gmail.com>
+ * @link https://github.com/yiisoft/yii2/blob/master/framework/helpers/BaseArrayHelper.php
+ * @version 1.0.0
  */
 class ArrayH
 {
+    /**
+     * @param array $array
+     * @param string $from
+     * @param string $to
+     * @param null $group
+     * @return array
+     */
 	public static function map(array $array, $from, $to, $group = null)
     {
         $result = [];
@@ -21,6 +35,12 @@ class ArrayH
         return $result;
     }
 
+    /**
+     * @param array $array
+     * @param mixed $key
+     * @param null|mixed $default
+     * @return mixed|null
+     */
     public static function getValue(array $array, $key, $default = null)
     {
         if (is_array($key)) {

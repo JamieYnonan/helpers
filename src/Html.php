@@ -1,21 +1,54 @@
 <?php
-namespace Helper;
+namespace Helpers;
 
-Class Html extends BaseHtml
+/**
+ * Class Html
+ *
+ * help to job with tags html
+ *
+ * @package Helpers
+ * @author Jamie Ynonan <jamiea31@gmail.com>
+ * @version 1.0.0
+ */
+Class Html
 {
-	public static function p($text, array $options = [])
+	use BaseHtmlTrait;
+
+	/**
+	 * @uses BaseHtmlTrait::BaseHtmlTrait
+	 *
+	 * @param string $text
+	 * @param array $htmlOptions
+	 * @return string
+	 */
+	public static function p($text, array $htmlOptions = [])
 	{
-		return '<p'. self::htmlOptions($options) .'>'. $text . '</p>';
+		return '<p'. self::htmlOptions($htmlOptions) .'>'. $text . '</p>';
 	}
 
-	public static function button($text, array $options = [])
+	/**
+	 * @uses BaseHtmlTrait::BaseHtmlTrait
+	 *
+	 * @param string $text
+	 * @param array $htmlOptions
+	 * @return string
+	 */
+	public static function button($text, array $htmlOptions = [])
 	{
-		return '<button'. self::htmlOptions($options) .'>'. $text .'</button>';
+		return '<button'. self::htmlOptions($htmlOptions) .'>'. $text .'</button>';
 	}
 
-	public static function a($text, $href, array $options = [])
+	/**
+	 * @uses BaseHtmlTrait::BaseHtmlTrait
+	 *
+	 * @param string $text
+	 * @param string $href
+	 * @param array $htmlOptions
+	 * @return string
+	 */
+	public static function a($text, $href, array $htmlOptions = [])
 	{
-		return '<a href="'. $href .'"'. self::htmlOptions($options) .'>'
+		return '<a href="'. $href .'"'. self::htmlOptions($htmlOptions) .'>'
 			. $text .'</a>';
 	}
 }
